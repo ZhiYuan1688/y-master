@@ -6,7 +6,7 @@ export const allTagSlugs = ["next", "mdx", "next-conf", "react-conf"]
 
 export const formatVideoPreview = (video: Video) => {
   const partialVideo = pick(video, ["title", "description", "youtube", "tags"])
-
+  
   return {
     ...partialVideo,
     title: partialVideo.title || partialVideo.youtube.title,
