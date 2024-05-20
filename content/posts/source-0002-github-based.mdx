@@ -1,0 +1,72 @@
+---
+title: "Git & Github 基本操作"
+description: "记录一下，免得老年痴呆导出查"
+publishedAt: "2024-05-21"
+status: "published"
+series: 
+    order: 2
+    title: "开源折腾"
+---
+
+如果你指的是如何为一个新的或现有的项目初始化 Git 仓库并与 GitHub 连接，那么你可以按照以下步骤来操作：
+
+### 1. 初始化本地 Git 仓库
+首先，你需要在本地项目目录中初始化 Git。打开命令行或终端，切换到你的项目目录，然后运行以下命令：
+
+```bash
+git init
+```
+这个命令会在当前目录创建一个新的 `.git` 目录，这个目录包含了所有的 Git 仓库数据。
+
+### 2. 添加文件到仓库
+将项目文件添加到 Git 仓库中。首先，你可以使用 `git add` 命令来添加特定文件，或使用以下命令添加所有文件：
+
+```bash
+git add .
+```
+
+### 3. 提交更改
+完成文件添加后，你需要提交这些更改。使用以下命令进行首次提交：
+
+```bash
+git commit -m "Initial commit"
+```
+这里的 `"Initial commit"` 是提交信息，你可以根据实际更改自定义这个信息。
+
+### 4. 创建 GitHub 仓库
+登陆到你的 GitHub 账户，然后在 GitHub 界面上创建一个新的仓库。GitHub 会给你一个仓库的 URL，类似于这样：
+
+```
+https://github.com/你的用户名/你的仓库名.git
+```
+
+### 5. 关联 GitHub 仓库
+
+回到你的终端，将你的本地仓库与 GitHub 仓库关联。使用以下命令，替换其中的 URL 为你刚创建的 GitHub 仓库 URL：
+
+<Grid x="aside">
+  <Aside>
+    如果遇到`Recv failure: Connection was reset`这类问题，首先删除原链接`git remote remove origin`,然添加SSH链接
+  </Aside>
+</Grid>
+
+```bash
+git remote add origin https://github.com/你的用户名/你的仓库名.git
+```
+
+### 6. 推送更改到 GitHub
+
+最后，将你的本地仓库的内容推送到 GitHub。如果是首次推送，使用以下命令：
+<Grid x='aside'>
+    <Aside>
+    `-u` 参数是 `--set-upstream` 的简写。这个参数用于指定一个默认的远程仓库和分支，以便在将来的 `git push` 和 `git pull` 操作中不必每次都指定远程仓库和分支
+    </Aside>
+
+</Grid>
+```bash
+git push -u origin master
+```
+
+这里假设你是推送到 `master` 分支，如果你使用的是其他名称的分支（如 `main`），请相应地调整命令。
+
+以上步骤将帮助你设置一个基本的 Git 和 GitHub 工作流，可以用来管理和共享你的代码。如果在操作过程中遇到问题，检查每一步的输出信息，确认是否有错误，并根据需要调整命令。

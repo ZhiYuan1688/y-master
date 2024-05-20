@@ -6,7 +6,7 @@ export const allTagSlugs = ["next", "mdx", "next-conf", "react-conf"]
 
 export const formatVideoPreview = (video: Video) => {
   const partialVideo = pick(video, ["title", "description", "youtube", "tags"])
-  
+
   return {
     ...partialVideo,
     title: partialVideo.title || partialVideo.youtube.title,
@@ -35,10 +35,12 @@ export const formatPostPreview = (post: Post) => {
 }
 
 export const getVideoDetails = async (id: string) => {
+  // console.log(id)
+  // 源代码这里请求会超时，不知道什么原因本地js请求youtube都超时 只能写一个flask了
   const res = await fetch(
-    `https://www.googleapis.com/youtube/v3/videos?part=contentDetails%2Csnippet%2Cstatistics&id=${id}&key=${process.env.YOUTUBE_DATA_API_KEY}`,
+    `https://blog-api.ymaster.app/youtube_video?id=${id}`,
   ).then((x) => x.json())
-
+  
   if (!res.items?.[0]) {
     throw new Error("Video not found")
   }

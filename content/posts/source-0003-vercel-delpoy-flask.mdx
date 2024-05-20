@@ -1,0 +1,25 @@
+---
+title: "vercel部署flask接口"
+description: "vercel部署flask接口"
+publishedAt: "2024-05-21"
+status: "published"
+series:
+    order: 3
+    title: "开源折腾"
+---
+
+起初是因为这个博客他妈的请求video接口一直超时（js请求超时，python请求正常），所以不得已使用flask开发一个接口
+
+最开始选用的方案是：[ubuntu部署flask](http://ymaster.app/blog/ubuntu-deploy-flask)
+
+后来折腾ssl半天，无果，所以选用vercel
+
+## 源码模板
+
+flask代码完全不变，主要是要写一些velcel的参数
+
+代码仓库：https://github.com/ZhiYuan1688/vercel-flask
+
+![](https://s2.loli.net/2024/05/21/ykmSou12Ygr7iNV.webp)
+
+部署好也是可以用了
