@@ -1,0 +1,110 @@
+---
+title: "vercel部署github项目，实现自动更新部署"
+description: "发现一个很漂亮的基于Next.js的本地静态博客，折腾了一阵子"
+publishedAt: "2024-05-19"
+status: "published"
+series:
+  order: 1
+  title: "开源折腾"
+---
+
+作者博客：https://delba.dev/
+
+源码：https://github.com/delbaoliveira/website
+
+动画做的都挺好的，然后文章内页我是真喜欢，后续对首页改一下版
+
+## 前置
+
+主要是操作 [github](https://www.github.com)，[vercel](https://vercel.app)直接一键部署就行了:
+
+### Git
+
+首先需要下载 [git](https://git-scm.com/downloads)，根据提示下载就好了
+
+下载好配置一下本地git信息
+
+``` cmd
+git config --global user.name "您的用户名"
+git config --global user.email "您的邮箱地址"
+```
+然后配置一下Github密钥
+
+``` cmd
+ssh-keygen -t rsa -b 4096 -C "github邮箱"
+```
+
+这个操作会在本地生成一个密钥
+
+将密钥打印复制
+
+``` cmd
+cat ~/.ssh/id_rsa.pub
+```
+
+到`github`的`settings`-`SSH and GPG keys`，新建一个key，将上述复制的密钥复制进去
+
+这样就配置好github了，在github新建一个仓库，复制下https链接
+
+## 部署
+
+### 推送到 Github
+
+首先需要把代码推送到github
+
+`cd` 进入代码目录
+
+- 初始化git
+
+``` cmd
+git init
+```
+<Grid x="aside">
+  <Aside>
+    删除文章使用：```git rm "path/to/your/file" ```
+  </Aside>
+</Grid>
+
+- 添加文件到本地仓库
+``` cmd
+git add .
+```
+
+- 提交更改
+
+```cmd 
+git commit -m "首次提交"
+```
+
+- 连接到 GitHub 仓库
+``` cmd 
+git remote add origin https://github.com/用户名/仓库名.git
+```
+
+- 推送到 master 分支
+``` cmd 
+git push -u origin master
+```
+
+### 部署到 vercel
+
+这个没啥好说的，直接新建选择仓库就好了
+
+###  后续更新
+
+vercel 只需要把本地修改的代码推送到已经部署的github上 ，就会自动更新部署
+
+这里记录一下后续更新的操作
+
+- 首选需要把修改的文章或新建的文章添加到本地仓库
+```cmd 
+git add "content/posts/*.mdx"
+```
+- 提交更改
+```cmd 
+git commit -m "新增文章"
+```
+- 推送到github
+```cmd 
+git push origin master # 选择你的分支
+```
