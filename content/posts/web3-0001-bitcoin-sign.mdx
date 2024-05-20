@@ -1,0 +1,65 @@
+---
+title: "JS根据助记词实现Bitcoin基础操作（账户，签名）"
+description: "最近有一个项目需要链接钱包签名，那我指定不能啊，抓包找参数需要签名数据，ok开干"
+publishedAt: "2024-05-20"
+status: "published"
+series:
+  order: 1
+  title: "web3开发大全"
+---
+
+JS根据助记词实现Bitcoin基础操作（账户，签名）
+
+## 基础
+
+比特币账户地址类型有四种
+![账户地址类型](https://s2.loli.net/2024/05/20/MaRVco3jyGUgZAr.webp)
+
+一般目前常用的是 `BC1P` 开头的
+
+然后每个地址对应的私钥都不一样，签名数据自然也不一样
+
+### 常用库
+
+``` javascript
+const bip39 = require('bip39');
+const ecpair = require('ecpair');
+const ecc = require('tiny-secp256k1');
+const ECPair = ecpair.ECPairFactory(ecc);
+const bitcoinMessage = require('bitcoinjs-message');
+const { BIP32Factory } = require('bip32');
+const bip32 = BIP32Factory(ecc);
+const bitcoin = require('bitcoinjs-lib');
+bitcoin.initEccLib(ecc);
+```
+
+## 完整代码
+
+``` javascript
+    // 生成种子
+    const seed = bip39.mnemonicToSeedSync(mnemonic);
+
+    // 使用种子生成 BIP32 根密钥
+    const root = bip32.fromSeed(seed);
+
+    // 获取派生路径上的密钥对，bc1p:"m/86'/0'/0'/0/0"
+    const path = "m/86'/0'/0'/0/0";
+    const child = root.derivePath(path);
+    const keyPair = ECPair.fromPrivateKey(child.privateKey);
+    // bc1p地址
+    const { address } = bitcoin.payments.p2tr({ internalPubkey: keyPair.publicKey.slice(1, 33) });
+    console.log('BTC P2TR Address:', address);
+    //打印私钥和公钥
+    const privateKey = keyPair.privateKey.toString('hex');
+    const publicKey = keyPair.publicKey.toString('hex');
+    console.log('Private Key:', privateKey);
+    console.log('Public Key:', publicKey);
+
+    // 签名消息
+    const buffer = Buffer.from(keyPair.privateKey.toString('hex'), 'hex');
+    const signature = bitcoinMessage.sign(evm_address, buffer, keyPair.compressed);
+
+    signatureBase64 = signature.toString('base64')
+```
+
+
