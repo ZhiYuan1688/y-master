@@ -1,0 +1,35 @@
+---
+title: "EVM自定义消息签名代码"
+description: "EVM自定义消息签名代码"
+publishedAt: "2024-05-21"
+status: "published"
+series:
+    order: 3
+    title: "web3开发大全"
+---
+适应于任何EVM网络，把对应的节点放进去即可
+
+```python showLineNumbers title="evm-sign.py" {9-14}
+from eth_account import Account
+from eth_account.messages import encode_defunct
+from web3 import Web3
+
+node_url = '节点'  # 替换成实际的节点URL
+# 创建Web3连接
+w3 = Web3(Web3.HTTPProvider(node_url))
+
+def sign_message_with_node(private_key, message):
+    # 准备消息
+    message_encoded = encode_defunct(text=message)
+    # 使用eth_account库直接签名消息
+    signed_message = Account.sign_message(message_encoded, private_key)
+    return signed_message.signature
+
+# 示例使用
+if __name__ == "__main__":
+    message = "message"
+    private_key = '私钥'  # 替换成你的私钥
+    # 签名消息
+    signature = sign_message_with_node(private_key, message)
+    print("Signature:", signature.hex())
+```
