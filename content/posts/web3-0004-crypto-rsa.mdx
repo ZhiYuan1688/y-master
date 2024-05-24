@@ -124,6 +124,22 @@ s.prototype.encrypt = function(e) {
 然后终于解决了
 ![](https://s2.loli.net/2024/05/25/NwvnlhIqJzPAse4.webp)
 
+## 代码实现
+```python showLineNumbers {9-13}
+from Crypto.PublicKey import RSA
+from Crypto.Cipher import PKCS1_v1_5
+import base64
+# 公钥字符串
+public_key_str = """-----BEGIN PUBLIC KEY-----
+公钥部分
+-----END PUBLIC KEY-----"""
+# 加载公钥
+public_key = RSA.import_key(public_key_str)
+encryptor = PKCS1_v1_5.new(public_key)
+data = str(int(time.time() *1000))
+encrypted_message = encryptor.encrypt(data.encode('utf-8'))
+encrypted_message_base64 = base64.b64encode(encrypted_message).decode('utf-8')
+```
 ## RSA常用填充方案以特征
 以下是更新的表格，更加注重于描述如何在代码中识别各种加密填充方案的特征：
 
