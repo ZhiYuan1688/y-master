@@ -1,0 +1,33 @@
+---
+title: "CSS <span> 实现条件模糊效果"
+description: "CSS <span> 实现条件模糊效果"
+publishedAt: "2024-05-25 02:26:00+08:00"
+status: "published"
+series:
+    order: 1
+    title: "CSS Tip"
+---
+设置`扩展翻译`时候发现这个样式挺漂亮的，如图：
+![](https://s2.loli.net/2024/05/25/EZme5YRnUMJWGjb.webp)
+
+## 代码
+
+```html
+<span className="blur-sm transition duration-300 ease-in-out hover:blur-none">
+    你好啊
+</span>
+```
+<span className="blur-sm transition duration-300 ease-in-out hover:blur-none">
+    你好
+</span>
+
+## 解释
+为了增加过渡效果，确保在Tailwind CSS的类中包含过渡属性，使文字模糊和清晰变化更加平滑。以下是更新后的示例，增加了针对模糊效果的过渡设置：
+
+- `blur-sm`：应用一个小的模糊效果。
+- `transition`：表示将过渡效果应用于所有可变属性。
+- `duration-300`：指定过渡效果的持续时间为300毫秒。
+- `ease-in-out`：过渡效果的速度曲线，开始和结束时速度较慢，中间加快。
+
+
+又水一天😌

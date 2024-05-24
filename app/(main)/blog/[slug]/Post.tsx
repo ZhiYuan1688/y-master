@@ -17,7 +17,7 @@ export default function Post({ post }: { post: FormattedPost }) {
 
   return (
     <>
-      <div className="mt-24 mb-4 xl:!col-end-5">
+      <div className="mt-1 mb-4 xl:!col-end-5">
         <Link href="/" className="group inline-flex items-center space-x-2">
           <div className="transition rounded-full bg-rose-200/10 p-1 text-rose-200/80 group-hover:bg-rose-200/25 group-hover:text-rose-200">
             <Left className="w-4 group-hover:scale-125 transition-transform group-active:scale-110" />
@@ -62,15 +62,15 @@ export default function Post({ post }: { post: FormattedPost }) {
 
       <MDXContent components={components} />
 
-      <div className="mt-16">
+      {/* <div className="mt-16">
         <LikeButton2 slug={post.slug} />
-      </div>
+      </div> */}
 
-      {post.series && post.series.posts.length > 1 ? (
-        <div className="mt-16">
-          <PostSeries data={post.series} />
+      {/* {post.series && post.series.posts.length > 1 ? ( */}
+        <div className="mt-8">
+          {/* <PostSeries data={post.series} /> */}
         </div>
-      ) : null}
+      {/* ) : null} */}
     </>
   )
 }
